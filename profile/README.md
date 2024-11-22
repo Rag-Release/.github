@@ -115,6 +115,177 @@ The Sri Lankan publishing industry faces challenges such as limited collaboratio
 4. **Feedback & Buying Service**:
    - Integrated with payment gateways and user review systems.
 
+### Microservices Architecture for Book Publishing and Paper Publication System
+
+This documentation outlines a modular **microservices architecture** implemented using a **Serverless Full-Stack approach** with AWS services. It provides detailed explanations of each service, repository structure, and deployment practices, highlighting the stack used and its free-tier benefits.
+
+---
+
+### **Microservices Overview**
+
+### **1. User Management & Authentication Service**  
+**Name:** `UserAuthService`  
+
+#### **Purpose:**  
+Manages user authentication and authorization, ensuring secure access to the system. Includes features for profile management, account upgrades, and role-based permissions.  
+
+#### **Features:**  
+- **Authentication**: Sign-up, sign-in, and password recovery.  
+- **User Management**: Profile updates and account upgrades.  
+- **Role Management**: Different roles such as Author, Editor, and Admin.  
+
+#### **Tech Stack:**  
+- **Frontend**: Next.js with AWS Amplify for seamless API integration.  
+- **Backend**: AWS Lambda with Node.js and Express.js.  
+- **Database**: AWS RDS (PostgreSQL).  
+
+#### **Endpoints:**  
+- `POST /auth/signup`  
+- `POST /auth/login`  
+- `GET /auth/profile`  
+- `PUT /auth/upgrade`  
+
+#### **Repository Name:**  
+- `user-auth-service`  
+
+---
+
+### **2. Book Management Service**  
+**Name:** `BookService`  
+
+#### **Purpose:**  
+Handles all operations related to books, including manuscript uploads, ISBN certificates, cover design submissions, and the publishing workflow.  
+
+#### **Features:**  
+- **Manuscript Management**: Secure uploads and versioning.  
+- **Publishing Workflow**: Prepares print-ready files and tracks publishing status.  
+- **Buying and Feedback**: Allows users to purchase books and provide feedback.  
+
+#### **Subservices:**  
+- **Manuscript Upload Service**  
+  - Handles uploads and version tracking of manuscripts.  
+  - Integrates AWS S3 for storage.  
+
+- **ISBN & Cover Service**  
+  - Uploads ISBN certificates and cover designs securely.  
+  - Prevents unauthorized access using AWS Lambda.  
+
+#### **Tech Stack:**  
+- **Frontend**: Next.js.  
+- **Backend**: AWS Lambda with Node.js + Express.js.  
+- **Database**: AWS RDS (PostgreSQL).  
+
+#### **Endpoints:**  
+- `POST /manuscripts/upload`  
+- `POST /isbn/upload`  
+- `POST /cover/upload`  
+- `POST /publish`  
+- `GET /books/:id`  
+
+#### **Repository Name:**  
+- `book-service`  
+
+---
+
+### **3. Media Service**  
+**Name:** `MediaService`  
+
+#### **Purpose:**  
+Ensures secure forwarding of ISBN certificates and cover designs to prevent unauthorized access or hacking attempts.  
+
+#### **Features:**  
+- Uses **AWS Lambda** for processing and validating media files.  
+- Forwards files securely to downstream services.  
+- Logs and monitors media service activities with CloudWatch.  
+
+#### **Tech Stack:**  
+- **Backend**: AWS Lambda.  
+- **Storage**: AWS S3.  
+
+#### **Endpoints:**  
+- `POST /media/forward`  
+
+#### **Repository Name:**  
+- `media-service`  
+
+---
+
+## **Observability and Monitoring**
+
+### **CloudWatch & Grafana with Prometheus**  
+- **Purpose:**  
+  - Logs application activities and monitors service health.  
+  - Visualizes metrics like API response times and error rates.  
+
+- **Implementation:**  
+  - **CloudWatch**: Tracks logs and metrics for AWS services.  
+  - **Prometheus**: Monitors system health and integrates with Grafana for reporting.  
+  - **Grafana**: Creates dashboards for visualizing service performance.
+
+---
+
+## **API Gateway**
+
+- **Implementation:**  
+  - **Preferred Option:** AWS API Gateway for routing requests to Lambda functions.  
+  - **Benefits:**  
+    - Centralized management of API endpoints.  
+    - Scalability with rate-limiting and throttling.  
+    - Custom domains for APIs.  
+
+- **Alternatives:**  
+  - Kong API Gateway.  
+  - Express Gateway for lightweight local deployments.  
+
+---
+
+## **Infrastructure and Deployment**
+
+### **Stack Details**  
+
+| Component                 | Technology                    | Free-Tier Benefit                                              |
+|---------------------------|-------------------------------|---------------------------------------------------------------|
+| **Frontend**              | Next.js, AWS Amplify          | Amplify integrates with AWS services for smooth front-end ops.|
+| **Backend**               | AWS Lambda, Node.js, Express.js | 1M free Lambda requests per month.                            |
+| **Database**              | AWS RDS (PostgreSQL)          | 750 hours/month free Single-AZ t3.micro usage.                |
+| **Storage**               | AWS S3                        | 5 GB free storage.                                            |
+| **CI/CD**                 | GitHub Actions                | Free for public repositories.                                 |
+
+### **Polyrepo Approach**  
+- Each microservice resides in an independent repository to ensure modularity and flexibility.  
+- **Repository Names:**  
+  1. `user-auth-service`  
+  2. `book-service`  
+  3. `media-service`  
+
+### **GitHub Actions Integration**  
+- **Purpose:** Automates deployment of Lambda functions and API updates.  
+- **Steps:**  
+  1. Push changes to a branch.  
+  2. Run build and test jobs (e.g., Jest for testing).  
+  3. Deploy Lambda functions via AWS CLI.  
+
+---
+
+## **Scaling and Deployment**
+
+### **Kubernetes for Orchestration**  
+- Used for deploying and managing containerized services (Docker).  
+- Useful for hybrid workloads if extending beyond serverless.  
+
+### **Docker Compose**  
+- Simplifies local setup for microservices.  
+
+### **Nodemon vs. PM2**  
+- **Nodemon:** Useful in development for auto-restarting services.  
+- **PM2:** Recommended for production to manage and monitor Node.js services.  
+
+---
+
+## **Summary and Use Case**
+
+This microservices architecture provides a scalable and serverless solution for a book publishing platform, leveraging AWS's free-tier benefits for cost-effective operations. It supports relational data with RDS, serverless scalability with Lambda, and secure media handling with AWS S3 and Lambda integration.  
+
 ---
 
 ## ⚙️ **Setup and Installation**
