@@ -5,19 +5,19 @@ Welcome to the comprehensive documentation for our **Book Publishing and Paper P
 ---
 
 ## 📖 **Table of Contents**
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Real-World Context](#real-world-context)
-4. [Best Practices](#best-practices)
-5. [Technology Stack](#technology-stack)
-6. [Architecture](#architecture)
-7. [Setup and Installation](#setup-and-installation)
-8. [Deployment Strategy](#deployment-strategy)
-9. [Performance Optimization](#performance-optimization)
-10. [Security Measures](#security-measures)
-11. [Contributing](#contributing)
-12. [Future Roadmap](#future-roadmap)
-13. [Contact](#contact)
+1. [Overview](##overview)
+2. [Features](##features)
+3. [Real-World Context](##real-world-context)
+4. [Best Practices](##best-practices)
+5. [Technology Stack](##technology-stack)
+6. [Architecture](##architecture)
+7. [Setup and Installation](##setup-and-installation)
+8. [Deployment Strategy](##deployment-strategy)
+9. [Performance Optimization](##performance-optimization)
+10. [Security Measures](##security-measures)
+11. [Contributing](##contributing)
+12. [Future Roadmap](##future-roadmap)
+13. [Contact](##contact)
 
 ---
 
@@ -25,7 +25,7 @@ Welcome to the comprehensive documentation for our **Book Publishing and Paper P
 
 The **Book Publishing and Paper Publication System** is a serverless full-stack application that transforms the traditional publishing workflow into an efficient, collaborative, and scalable digital platform. It is designed to cater to the unique needs of the Sri Lankan publishing industry while leveraging global best practices.
 
-**Main Features**:
+## **Main Features**:
 - **Real-time Collaboration**: Authors, editors, and reviewers can work together on manuscripts.
 - **Automated Workflows**: ISBN generation, cover design submission, and more.
 - **Scalable Architecture**: Supports a growing user base with serverless backend solutions.
